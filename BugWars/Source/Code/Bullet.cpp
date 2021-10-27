@@ -8,6 +8,7 @@ IMPLEMENT_RTTI(Bullet);
 
 void Bullet::OnStart(Point)
 {
+	disabled = false;
 }
 
 void Bullet::OnUpdate(float dt)

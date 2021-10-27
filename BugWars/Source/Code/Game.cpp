@@ -18,16 +18,18 @@ Game::Game()
 void Game::OnUpdate(float dt)
 {
 	PIXScopedEvent(PIX_COLOR_INDEX(5), __FUNCTION__);
-	for (auto obj : objects)
-		if (!obj->disabled)
-			obj->Update(dt);
+	for (int i = 0; i < objects.size(); i++) {
+		if (!objects[i]->disabled)
+			objects[i]->Update(dt);
+	}
 }
 
 void Game::OnRender() const
 {
-	for (auto obj : objects)
-		if (obj->visible)
-			DoRender(obj);
+	for (int i = 0; i < objects.size(); i++) {
+		if (objects[i]->visible)
+			DoRender(objects[i]);
+	}
 }
 
 void Game::AddObject(GameObject* object)
@@ -39,4 +41,7 @@ void Game::AddObject(GameObject* object)
 
 void Game::OnBugsSpawned()
 {
+	for (auto obj : this->objects) {
+		obj->disabled = false;
+	}
 }
