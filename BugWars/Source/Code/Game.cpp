@@ -35,8 +35,8 @@ void Game::OnRender() const
 void Game::AddObject(GameObject* object)
 {
 	objects.push_back(object);
-	if (object->GetRTTI() == Bug::s_RTTI)
-		Log("I'm a bug");
+	//if (object->GetRTTI() == Bug::s_RTTI)
+	//	Log("I'm NOT a bug");
 }
 
 void Game::OnBugsSpawned()
@@ -44,4 +44,13 @@ void Game::OnBugsSpawned()
 	for (auto obj : this->objects) {
 		obj->disabled = false;
 	}
+	Tank* tank = dynamic_cast<Tank*>(this->objects[0]);
+	for (int i = 1; i < this->objects.size(); i++) {
+		if (auto bug = dynamic_cast<Bug*>(objects[i])) {
+			if (!bug->visible || bug->position.Distance(tank->position) > 2000) {
+				objects[i] = nullptr;
+			}
+		}
+	}
+	this->objects.erase(std::remove(begin(this->objects), end(this->objects), nullptr), end(this->objects));
 }

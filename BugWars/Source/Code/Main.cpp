@@ -13,7 +13,7 @@ int main(int argc, const char* argv[])
 
 		if (argc > 1)
 			if (!strcmp(argv[1], "-lock60fps"))
-				framework.lock60fps = true;
+				framework.lock60fps = false;
 
 		framework.Run(game);
 	}
