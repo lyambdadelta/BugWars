@@ -48,6 +48,7 @@ void Game::OnBugsSpawned()
 	for (int i = 1; i < this->objects.size(); i++) {
 		if (auto bug = dynamic_cast<Bug*>(objects[i])) {
 			if (!bug->visible || bug->position.Distance(tank->position) > 2000) {
+				delete objects[i];
 				objects[i] = nullptr;
 			}
 		}
