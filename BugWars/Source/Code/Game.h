@@ -7,6 +7,7 @@ struct Tank;
 struct Game : public GameBase
 {
 	Game();
+	~Game();
 
 	virtual void OnUpdate(float dt) override;
 	virtual void OnRender() const override;

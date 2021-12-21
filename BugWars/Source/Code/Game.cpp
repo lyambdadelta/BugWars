@@ -15,6 +15,12 @@ Game::Game()
 	g_Game = this;
 }
 
+Game::~Game() {
+	for (int i = 1; i < this->objects.size(); i++) {
+		delete objects[i];
+	}
+}
+
 void Game::OnUpdate(float dt)
 {
 	PIXScopedEvent(PIX_COLOR_INDEX(5), __FUNCTION__);
@@ -47,7 +53,7 @@ void Game::OnBugsSpawned()
 	Tank* tank = dynamic_cast<Tank*>(this->objects[0]);
 	for (int i = 1; i < this->objects.size(); i++) {
 		if (auto bug = dynamic_cast<Bug*>(objects[i])) {
-			if (!bug->visible || bug->position.Distance(tank->position) > 2000) {
+			if (!bug->visible || bug->position.Distance(tank->position) > 1300) {
 				delete objects[i];
 				objects[i] = nullptr;
 			}
