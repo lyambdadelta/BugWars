@@ -4,6 +4,12 @@
 
 IMPLEMENT_RTTI(Bug);
 
+Bug::Bug()
+{
+	disabled = false;
+
+}
+
 void Bug::OnUpdate(float dt)
 {
 }

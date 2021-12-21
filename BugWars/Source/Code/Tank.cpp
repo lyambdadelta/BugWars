@@ -7,6 +7,12 @@
 
 IMPLEMENT_RTTI(Tank);
 
+Tank::Tank()
+	
+{
+	disabled = false;
+}
+
 void Tank::OnUpdate(float dt)
 {
 }
@@ -14,15 +20,15 @@ void Tank::OnUpdate(float dt)
 BugBase* Tank::GetBugToShoot() const
 {
 	Bug* tar = nullptr;
-	float min = 1000000.0f;
+	float min = std::numeric_limits<float>::max();
 	for (auto obj : g_Game->objects) {
 		if (auto bug = dynamic_cast<Bug*>(obj)) {
 			if (bug->disabled || !bug->visible) {
 				continue;
 			}
-			float tmp = std::powf(bug->position.x - position.x, 2) + std::powf(bug->position.y - position.y, 2);
-			if (tmp < min) {
-				min = tmp;
+			float dist2 = bug->position.Distance2(position);
+			if (dist2 < min) {
+				min = dist2;
 				tar = bug;
 			}
 		}

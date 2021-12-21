@@ -16,7 +16,7 @@ Game::Game()
 }
 
 Game::~Game() {
-	for (int i = 1; i < this->objects.size(); i++) {
+	for (int i = 0; i < this->objects.size(); i++) {
 		delete objects[i];
 	}
 }
@@ -47,12 +47,9 @@ void Game::AddObject(GameObject* object)
 
 void Game::OnBugsSpawned()
 {
-	for (auto obj : this->objects) {
-		obj->disabled = false;
-	}
-	Tank* tank = dynamic_cast<Tank*>(this->objects[0]);
-	for (int i = 1; i < this->objects.size(); i++) {
-		if (auto bug = dynamic_cast<Bug*>(objects[i])) {
+	for (int i = 1; i < objects.size(); i++) {
+		if (objects[i]->GetRTTI() == Bug::s_RTTI) {
+			auto bug = static_cast<Bug*>(objects[i]);
 			if (!bug->visible || bug->position.Distance(tank->position) > 1300) {
 				delete objects[i];
 				objects[i] = nullptr;
